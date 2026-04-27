@@ -1,7 +1,9 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
-import { questions, type QuizQuestion } from '../data/questions';
-import { generateResultSummary, type QuizAnswer, type QuizResult } from '../lib/quizScoring';
+import { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from 'react';
+import { coreQuestions } from '../data/coreQuestions';
+import { adaptiveQuestions } from '../data/adaptiveQuestions';
+import { calculateCoreScores, getAdaptivePath, getResultSummary, calculateFinalScores, type QuizAnswer, type QuizResult } from '../lib/quizScoring';
 import { saveResultToStorage } from '../lib/shareResult';
+import type { QuizQuestion, PersonalityColor } from '../types/quiz';
 
 interface QuizContextValue {
   questions: QuizQuestion[];
@@ -13,6 +15,7 @@ interface QuizContextValue {
   progress: number;
   currentQuestion: QuizQuestion | null;
   selectedOptionIndex: number | null;
+  phase: "core" | "adaptive";
   goToNext: () => void;
   goToPrev: () => void;
   selectOption: (optionIndex: number) => void;
@@ -27,13 +30,22 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [isComplete, setIsComplete] = useState(false);
+  const [adaptivePath, setAdaptivePath] = useState<PersonalityColor | null>(null);
 
-  const totalQuestions = questions.length;
+  const questions = useMemo(() => {
+    if (adaptivePath) {
+      return [...coreQuestions, ...adaptiveQuestions[adaptivePath]];
+    }
+    return coreQuestions;
+  }, [adaptivePath]);
+
+  const totalQuestions = 26; // 20 core + 6 adaptive
   const progress = Math.round((currentIndex / totalQuestions) * 100);
   const currentQuestion = questions[currentIndex] ?? null;
 
   const currentAnswer = answers.find((a) => a.questionId === currentQuestion?.id);
   const selectedOptionIndex = currentAnswer?.optionIndex ?? null;
+  const phase = currentIndex < 20 ? "core" : "adaptive";
 
   const selectOption = useCallback(
     (optionIndex: number) => {
@@ -45,9 +57,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
           ...filtered,
           {
             questionId: currentQuestion.id,
+            phase: currentQuestion.phase,
             optionIndex,
             scores: option.scores,
-            isReverse: currentQuestion.isReverse,
           },
         ];
       });
@@ -56,10 +68,16 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   );
 
   const goToNext = useCallback(() => {
-    if (currentIndex < totalQuestions - 1) {
+    if (currentIndex === 19 && !adaptivePath) {
+      // Finished core questions, calculate adaptive path
+      const coreScores = calculateCoreScores(answers.filter(a => a.phase === 'core'));
+      const path = getAdaptivePath(coreScores);
+      setAdaptivePath(path);
+      setCurrentIndex((i) => i + 1);
+    } else if (currentIndex < totalQuestions - 1) {
       setCurrentIndex((i) => i + 1);
     }
-  }, [currentIndex, totalQuestions]);
+  }, [currentIndex, answers, adaptivePath, totalQuestions]);
 
   const goToPrev = useCallback(() => {
     if (currentIndex > 0) {
@@ -68,7 +86,11 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   }, [currentIndex]);
 
   const finishQuiz = useCallback((): QuizResult => {
-    const r = generateResultSummary(answers, questions);
+    const coreAnswers = answers.filter(a => a.phase === 'core');
+    const adaptAnswers = answers.filter(a => a.phase === 'adaptive');
+    const finalScores = calculateFinalScores(coreAnswers, adaptAnswers);
+    
+    const r = getResultSummary(finalScores, answers.length);
     setResult(r);
     setIsComplete(true);
     saveResultToStorage(r);
@@ -80,6 +102,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setAnswers([]);
     setResult(null);
     setIsComplete(false);
+    setAdaptivePath(null);
   }, []);
 
   return (
@@ -94,6 +117,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         progress,
         currentQuestion,
         selectedOptionIndex,
+        phase,
         goToNext,
         goToPrev,
         selectOption,

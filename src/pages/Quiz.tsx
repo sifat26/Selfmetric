@@ -16,6 +16,7 @@ export default function Quiz() {
     goToNext,
     goToPrev,
     finishQuiz,
+    phase,
   } = useQuiz();
 
   // If quiz hasn't started (no questions loaded), redirect home
@@ -69,6 +70,8 @@ export default function Quiz() {
             currentIndex={currentIndex}
             totalQuestions={totalQuestions}
             category={currentQuestion.category}
+            subCategory={currentQuestion.subCategory}
+            phase={currentQuestion.phase}
           />
 
           {/* Card */}

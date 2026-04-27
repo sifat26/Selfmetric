@@ -1,13 +1,13 @@
 import type { Percentages } from '../../lib/quizScoring';
-import type { PersonalityTypeId } from '../../data/questions';
+import type { PersonalityColor } from '../../types/quiz';
 import { personalityTypes } from '../../data/personalityTypes';
 
 interface ScoreBreakdownProps {
   percentages: Percentages;
-  primaryType: PersonalityTypeId;
+  primaryType: PersonalityColor;
 }
 
-const TYPE_ORDER: PersonalityTypeId[] = ['red', 'yellow', 'green', 'blue'];
+const TYPE_ORDER: PersonalityColor[] = ['red', 'blue', 'green', 'yellow'];
 
 export function ScoreBreakdown({ percentages, primaryType }: ScoreBreakdownProps) {
   return (

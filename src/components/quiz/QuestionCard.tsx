@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import type { QuizQuestion } from '../../data/questions';
+import type { QuizQuestion } from '../../types/quiz';
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
 

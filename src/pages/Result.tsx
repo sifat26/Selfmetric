@@ -107,16 +107,8 @@ export default function Result() {
             <span>📋</span> Overview
           </h2>
           <p className="text-sm text-slate-700 leading-relaxed">
-            {pt.overview}
+            {pt.simpleExplanation}
           </p>
-          <div className="mt-4 pt-4 border-t border-slate-100">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
-              Core Motivation
-            </p>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              {pt.coreMotivation}
-            </p>
-          </div>
         </div>
 
         {/* ── Collapsible sections ── */}
