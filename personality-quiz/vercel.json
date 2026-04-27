@@ -1,9 +1,0 @@
-{
-  "name": "selfmetric",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
