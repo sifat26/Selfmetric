@@ -18,7 +18,7 @@ export default function Home() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🧠</span>
+          <span className="text-2xl"><img src="/public/Selfmetric.svg" alt="Selfmetric Logo" width={40} height={40} /></span>
           <span className="font-display font-bold text-lg tracking-tight">Selfmetric</span>
         </div>
         <a
