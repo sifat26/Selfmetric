@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { useQuiz } from '../context/QuizContext';
+import { useNavigate } from "react-router-dom";
+import { useQuiz } from "../context/QuizContext";
 
-import { FeatureGrid } from '../components/home/FeatureGrid';
-import { TypeGrid } from '../components/home/TypeGrid';
+import { FeatureGrid } from "../components/home/FeatureGrid";
+import { TypeGrid } from "../components/home/TypeGrid";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function Home() {
 
   const handleStart = () => {
     resetQuiz();
-    navigate('/quiz');
+    navigate("/quiz");
   };
 
   return (
@@ -18,8 +18,17 @@ export default function Home() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-2">
-          <span className="text-2xl"><img src="/public/Selfmetric.svg" alt="Selfmetric Logo" width={40} height={40} /></span>
-          <span className="font-display font-bold text-lg tracking-tight">Selfmetric</span>
+          <span className="text-2xl">
+            <img
+              src="/Selfmetric.svg"
+              alt="Selfmetric Logo"
+              width={40}
+              height={40}
+            />
+          </span>
+          <span className="font-display font-bold text-lg tracking-tight">
+            Selfmetric
+          </span>
         </div>
         <a
           href="/about"
@@ -38,16 +47,17 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-display font-extrabold tracking-tight leading-tight mb-6 animate-slide-up">
-          Discover Your{' '}
+          Discover Your{" "}
           <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
             Communication
-          </span>{' '}
+          </span>{" "}
           Personality
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10 animate-slide-up">
-          32 scenario-based questions. A detailed personal profile. Understand how you communicate, 
-          make decisions, handle conflict, and lead — and how others can work best with you.
+          32 scenario-based questions. A detailed personal profile. Understand
+          how you communicate, make decisions, handle conflict, and lead — and
+          how others can work best with you.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up">
@@ -68,10 +78,13 @@ export default function Home() {
       {/* CTA */}
       <section className="max-w-2xl mx-auto px-6 pb-28 text-center">
         <div className="rounded-3xl border border-indigo-500/20 bg-indigo-500/10 backdrop-blur-sm px-8 py-10">
-          <h2 className="text-2xl font-display font-bold mb-3">Ready to understand yourself better?</h2>
+          <h2 className="text-2xl font-display font-bold mb-3">
+            Ready to understand yourself better?
+          </h2>
           <p className="text-slate-400 text-sm mb-6">
-            This quiz is designed for self-reflection and communication awareness. It is not a clinical, 
-            medical, or psychological diagnosis.
+            This quiz is designed for self-reflection and communication
+            awareness. It is not a clinical, medical, or psychological
+            diagnosis.
           </p>
           <button
             onClick={handleStart}
@@ -84,7 +97,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center text-slate-600 text-xs pb-8 px-4">
-        © {new Date().getFullYear()} Selfmetric · For self-reflection purposes only · Not a clinical diagnosis
+        © {new Date().getFullYear()} Selfmetric · For self-reflection purposes
+        only · Not a clinical diagnosis
       </footer>
     </div>
   );
