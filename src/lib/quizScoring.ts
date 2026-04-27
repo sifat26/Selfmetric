@@ -1,4 +1,4 @@
-import type { PersonalityColor, QuizQuestion } from '../types/quiz';
+import type { PersonalityColor } from '../types/quiz';
 
 export type Scores = Record<PersonalityColor, number>;
 
@@ -27,6 +27,8 @@ export interface QuizResult {
   blendLabel: string;
   isBlend: boolean;
   totalAnswered: number;
+  isAdaptive?: boolean;
+  adaptiveNote?: string;
 }
 
 const TYPE_ORDER: PersonalityColor[] = ['red', 'blue', 'green', 'yellow'];

@@ -16,7 +16,6 @@ export default function Quiz() {
     goToNext,
     goToPrev,
     finishQuiz,
-    phase,
   } = useQuiz();
 
   // If quiz hasn't started (no questions loaded), redirect home

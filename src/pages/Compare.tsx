@@ -48,7 +48,7 @@ export default function Compare() {
                 {/* Core motivation */}
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Core Drive</p>
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">{pt.coreMotivation}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">{pt.simpleExplanation}</p>
                 </div>
 
                 {/* Top 3 strengths */}
@@ -67,14 +67,14 @@ export default function Compare() {
                 {/* Communication style */}
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Communication</p>
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">{pt.communicationStyle}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">{pt.communicationGuide}</p>
                 </div>
 
-                {/* Career tags */}
+                {/* Happy Triggers */}
                 <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Career Fit</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ideal Environment</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {pt.careerFit.slice(0, 3).map((c, i) => (
+                    {pt.happyTriggers.slice(0, 3).map((c, i) => (
                       <span
                         key={i}
                         className="px-2 py-1 rounded-full text-xs font-medium"

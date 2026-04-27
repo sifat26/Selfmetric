@@ -1,6 +1,6 @@
 import type { QuizResult } from '../../lib/quizScoring';
 import { personalityTypes } from '../../data/personalityTypes';
-import { ResultSection, BulletList, Prose, TagList } from './ResultSection';
+import { ResultSection, BulletList, Prose } from './ResultSection';
 
 export function ResultDetails({ result }: { result: QuizResult }) {
   const pt = personalityTypes[result.primaryType];
