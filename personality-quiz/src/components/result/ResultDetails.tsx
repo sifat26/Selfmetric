@@ -1,0 +1,73 @@
+import type { QuizResult } from '../../lib/quizScoring';
+import { personalityTypes } from '../../data/personalityTypes';
+import { ResultSection, BulletList, Prose, TagList } from './ResultSection';
+
+export function ResultDetails({ result }: { result: QuizResult }) {
+  const pt = personalityTypes[result.primaryType];
+  const st = personalityTypes[result.secondaryType];
+
+  return (
+    <div className="space-y-3 mb-6">
+      <ResultSection title="Strengths" icon="✅" defaultOpen={true} accentColor={pt.hexColor}>
+        <BulletList items={pt.strengths} color={pt.hexColor} />
+      </ResultSection>
+
+      <ResultSection title="Blind Spots" icon="⚠️" accentColor="#F59E0B">
+        <BulletList items={pt.blindSpots} color="#F59E0B" />
+      </ResultSection>
+
+      <ResultSection title="Communication Style" icon="💬" accentColor={pt.hexColor}>
+        <Prose text={pt.communicationStyle} />
+      </ResultSection>
+
+      <ResultSection title="Under Stress" icon="😤" accentColor="#EF4444">
+        <Prose text={pt.underStress} />
+      </ResultSection>
+
+      <ResultSection title="Decision Style" icon="🧭" accentColor={pt.hexColor}>
+        <Prose text={pt.decisionStyle} />
+      </ResultSection>
+
+      <ResultSection title="Teamwork Style" icon="🤝" accentColor={pt.hexColor}>
+        <Prose text={pt.teamworkStyle} />
+      </ResultSection>
+
+      <ResultSection title="Leadership Style" icon="👑" accentColor={pt.hexColor}>
+        <Prose text={pt.leadershipStyle} />
+      </ResultSection>
+
+      <ResultSection title="Conflict Style" icon="⚔️" accentColor="#EF4444">
+        <Prose text={pt.conflictStyle} />
+      </ResultSection>
+
+      <ResultSection title="Best Work Environment" icon="🏆" accentColor={pt.hexColor}>
+        <Prose text={pt.bestEnvironment} />
+      </ResultSection>
+
+      <ResultSection title="How Others Should Communicate With You" icon="📡" accentColor={st.hexColor}>
+        <BulletList items={pt.howOthersShouldCommunicate} color={st.hexColor} />
+      </ResultSection>
+
+      <ResultSection title="Growth Tips" icon="🌱" accentColor="#10B981">
+        <BulletList items={pt.growthTips} color="#10B981" />
+      </ResultSection>
+
+      <ResultSection title="Career & Team Suggestions" icon="💼" accentColor={pt.hexColor}>
+        <TagList items={pt.careerFit} color={pt.hexColor} />
+      </ResultSection>
+
+      <ResultSection title="Relationship Tips" icon="💛" accentColor="#F59E0B">
+        <BulletList items={pt.relationshipTips} color="#F59E0B" />
+      </ResultSection>
+
+      <ResultSection title={`Your Secondary Style: ${st.color} / ${st.name} (${result.percentages[result.secondaryType]}%)`} icon={st.emoji} accentColor={st.hexColor}>
+        <p className="text-sm text-slate-700 leading-relaxed mt-3">{st.tagline}</p>
+        <p className="text-sm text-slate-600 leading-relaxed mt-2">{st.overview}</p>
+        <div className="mt-4">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Secondary Strengths</p>
+          <BulletList items={st.strengths.slice(0, 3)} color={st.hexColor} />
+        </div>
+      </ResultSection>
+    </div>
+  );
+}
